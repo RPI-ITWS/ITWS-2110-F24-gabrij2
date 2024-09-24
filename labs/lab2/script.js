@@ -93,16 +93,17 @@ async function fetchWeatherData(lat, lon) {
 
 // Fetch quote
 async function fetchQuote(isTroyDay) {
+  const corsProxy = "https://corsproxy.io/?";
   let url;
   if (isTroyDay) {
     // Fetch a quote from Dostoyevsky
     url = `${QUOTES_API_URL}/quotes?author=Dostoyevsky`;
   } else {
     // Fetch a random happy quote
-    url = `${QUOTES_API_URL}/random?tags=happy`;
+    url = `${QUOTES_API_URL}/random`;
   }
 
-  const response = await fetch(url);
+  const response = await fetch(corsProxy + encodeURIComponent(url));
   if (!response.ok) throw new Error("Quote API error");
   const data = await response.json();
 
@@ -246,14 +247,13 @@ function displayResults(results, isTroyDay, troyDayPercentage, quote) {
   const resultContainer = document.getElementById("result-container");
   const troyDayResult = isTroyDay
     ? `It's a Troy Day! (${troyDayPercentage.toFixed(2)}%), have a Dostoyevsky quote:`
-    : `It's not a Troy Day! (${troyDayPercentage.toFixed(2)}%), have a happy quote:`;
+    : `It's not a Troy Day! (${troyDayPercentage.toFixed(2)}%), have an inspirational quote:`;
   resultContainer.innerHTML = `<h2>${troyDayResult}</h2>`;
 
   const quoteDiv = document.getElementById("quote-container");
+  console.log(quote);
   quoteDiv.innerHTML = `
-    <blockquote>${quote.content}</blockquote>
-    <cite>— ${quote.author}</cite>
-  `;
+    <blockquote>${quote[0].h}</blockquote>`;
 }
 
 // Main function
