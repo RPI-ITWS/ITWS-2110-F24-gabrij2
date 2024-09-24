@@ -1,0 +1,76 @@
+body {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    background-image: url('assets/barh-bg.jpg');
+    background-size: cover;
+}
+
+h1 {
+    padding-bottom: 3%;
+}
+
+h1 span {
+    font-family: "Monsieur La Doulaise", cursive;
+    font-weight: 600;
+    font-size: larger;
+}
+
+#page {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+#content {
+    padding: 3%;
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    margin: auto, 2%;
+    height: min(calc(0.85 * (100vh)), 80vw);
+    width: calc(.85 * min(calc(0.85 * (100vh - 3.5em)), 70vw));
+    min-width: 450px;
+    min-height: 600px;
+    border-radius: 15px;
+    background-image: url('assets/barton-clouds.jpg');
+    background-size: cover;
+    box-shadow: 0 8px 16px black;
+}
+/* #threshold-results { */
+
+.criteria-row {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgba(193, 165, 165, 0.266);
+    margin-bottom: 5px;
+    border-radius: 15px;
+    padding-left: 3%;
+    padding-right: 3%;
+}
+
+#bottom-card {
+    margin-top: auto;
+}
+
+#result-container {
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #fff08191;
+    font-size: 24px;
+}
+
+#quote-container {
+    padding: 20px;
+    background-color: #6868be;
+    border-radius: 10px;
+}
+
+#quote-container blockquote {
+    font-style: italic;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
