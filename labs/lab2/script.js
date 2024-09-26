@@ -146,7 +146,7 @@ function computeTroyDay(data) {
   // 3. is_overcast
   results.is_overcast = {
     value: `${cloudiness}%`,
-    passes: cloudiness === troyDayCriteria.is_overcast.threshold,
+    passes: cloudiness >= troyDayCriteria.is_overcast.threshold,
   };
 
   // 4. feels_like
@@ -248,7 +248,7 @@ function displayResults(results, isTroyDay, troyDayPercentage, quote) {
   const troyDayResult = isTroyDay
     ? `It's a Troy Day! (${troyDayPercentage.toFixed(2)}%), have a Dostoyevsky quote:`
     : `It's not a Troy Day! (${troyDayPercentage.toFixed(2)}%), have an inspirational quote:`;
-  resultContainer.innerHTML = `<h2>${troyDayResult}</h2>`;
+  resultContainer.innerHTML = `<h3>${troyDayResult}</h3>`;
 
   const quoteDiv = document.getElementById("quote-container");
   console.log(quote);
@@ -256,7 +256,6 @@ function displayResults(results, isTroyDay, troyDayPercentage, quote) {
     <blockquote>${quote[0].h}</blockquote>`;
 }
 
-// Main function
 async function run() {
   try {
     const { lat, lon } = await getUserLocation();
