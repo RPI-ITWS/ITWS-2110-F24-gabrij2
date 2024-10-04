@@ -17,18 +17,20 @@
     >
   </head>
   <body>
-    <div id="loading-screen"></div>
 
-    <div id="page">
-      <div id="content">
-        <h1 class="card-title text-center">The <span>Troy</span>-Day Scale</h1>
-        <div id="threshold-results">
-          <!-- Results will be filled in dynamically -->
-        </div>
-        <div id="bottom-card">
-          <div id="result-container"></div>
-          <div id="quote-container"></div>
-        </div>
+    <div id="content">
+      <h1 class="card-title">The <span>Troy</span>-Day Scale</h1>
+      <h2 class="date-title"></h2>
+      <div id="btn-container">
+        <button id="get-weather-btn">Get Today's Weather Data</button>
+        <button id="view-history-btn">View Historical Data</button>
+      </div>
+      <div id="threshold-results">
+        <!-- Results will be filled in dynamically -->
+      </div>
+      <div id="bottom-card">
+        <div id="result-container"></div>
+        <div id="quote-container"></div>
       </div>
     </div>
 
@@ -37,6 +39,6 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
-    <script src="script.js"></script>
+    <script type="module" src="js/main.js"></script>
   </body>
 </html>

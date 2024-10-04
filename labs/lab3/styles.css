@@ -11,9 +11,17 @@ p {
     margin: 0;
 }
 
-h1 {
-    height: 9%;
-    margin-bottom: 3%;
+.card-title {
+    text-align: center;
+    font-size: 26pt;
+}
+
+.date-title {
+    /* background-color: red; */
+    font-weight: 500;
+    font-size: medium;
+    text-align: center;
+    margin-bottom: 1.5%;
 }
 
 h1 span {
@@ -22,15 +30,25 @@ h1 span {
     font-size: larger;
 }
 
-#page {
+body {
     display: flex;
     align-items: center;
     flex-direction: column;
     min-height: 100vh;
 }
 
+#btn-container {
+    display: flex;
+    margin-bottom: 1.5%;
+}
+
+#btn-container button {
+    width: 50%;
+}
+
 #content {
     padding: 3%;
+    padding-top: 2%;
     margin-top: 100px;
     display: flex;
     flex-direction: column;
@@ -47,7 +65,7 @@ h1 span {
 #threshold-results {
     display: flex;
     flex-direction: column;
-    height: 64%;
+    height: 55%;
 }
 .criteria-row:hover { 
     filter: brightness(1.2);
@@ -82,17 +100,23 @@ h1 span {
 }
 
 #bottom-card {
+    border-radius: 15px;
+    background-color: #ffffffd0;
     margin-top: auto;
-    height: 20%;
+    /* height: 20%; */
 }
 
 #result-container {
-    margin-bottom: 2%;
+    border-radius: 15px;
+    /* margin-bottom: 2%; */
     padding: 2%;
-    border-radius: 10px;
-    background-color: #eca87be9;
+    background-color: #afa8a4d4;
 }
 
 #result-container h3 {
     font-size: large;
+}
+
+#quote-container {
+    padding: 3%;
 }
