@@ -1,0 +1,122 @@
+body {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    background-image: url('assets/barh-bg.jpg');
+    background-size: cover;
+}
+
+p {
+    margin: 0;
+}
+
+.card-title {
+    text-align: center;
+    font-size: 26pt;
+}
+
+.date-title {
+    /* background-color: red; */
+    font-weight: 500;
+    font-size: medium;
+    text-align: center;
+    margin-bottom: 1.5%;
+}
+
+h1 span {
+    font-family: "Monsieur La Doulaise", cursive;
+    font-weight: 600;
+    font-size: larger;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+#btn-container {
+    display: flex;
+    margin-bottom: 1.5%;
+}
+
+#btn-container button {
+    width: 50%;
+}
+
+#content {
+    padding: 3%;
+    padding-top: 2%;
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    margin: auto 2%;
+    min-width: 500px;
+    min-height: 750px;
+    height: min(calc(0.85 * (100vh)), 80vw);
+    width: calc(.85 * min(calc(0.85 * (100vh - 3.5em)), 70vw));
+    border-radius: 15px;
+    background-image: url('assets/barton-clouds.jpg');
+    background-size: cover;
+    box-shadow: 0 8px 16px black;
+}
+#threshold-results {
+    display: flex;
+    flex-direction: column;
+    height: 55%;
+}
+.criteria-row:hover { 
+    filter: brightness(1.2);
+    cursor: pointer;
+}
+
+.criteria-row {
+    display: flex;
+    align-items: center;
+    /* justify-content: space-between; */
+    background-color: rgba(193, 165, 165, 0.266);
+    /* margin-bottom: ; */
+    border-radius: 15px;
+    height: 9%;
+    margin-bottom: 1%;
+    padding-left: 3%;
+    padding-right: 3%;
+    border-width: 10px;
+    border-bottom: solid#000000e9;
+}
+
+.criteria-row .criteria {
+    width: 40%;
+    font-size: large;
+    font-weight: 700;
+    /* background: red; */
+}
+
+.criteria-row .passes-badge {
+    font-size: larger;
+    margin-left: auto;
+}
+
+#bottom-card {
+    border-radius: 15px;
+    background-color: #ffffffd0;
+    margin-top: auto;
+    /* height: 20%; */
+}
+
+#result-container {
+    border-radius: 15px;
+    /* margin-bottom: 2%; */
+    padding: 2%;
+    background-color: #afa8a4d4;
+}
+
+#result-container h3 {
+    font-size: large;
+}
+
+#quote-container {
+    padding: 3%;
+}
