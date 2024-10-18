@@ -1,6 +1,6 @@
 // script.js
 
-const API_KEY = "db97462de6e326bb12348d36bc39e6c5";
+const API_KEY = "your_openweathermap_api_key";
 const WEATHER_API_URL = "https://api.openweathermap.org/data/2.5/weather";
 const QUOTES_API_URL = "https://zenquotes.io/api/";
 
@@ -252,15 +252,67 @@ function displayResults(results, isTroyDay, troyDayPercentage, quote) {
   resultContainer.innerHTML = `<h3>${troyDayResult}</h3>`;
 
   const quoteDiv = document.getElementById("quote-container");
-  console.log(quote);
   quoteDiv.innerHTML = `
     <blockquote>${quote[0].h}</blockquote>`;
 }
 
+// Variable to store fetched weather data
+let weatherData = null;
+
+// Function to save data to the database
+async function saveDataToDatabase(data) {
+  try {
+    const response = await fetch('save_data.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+      },
+      body: JSON.stringify(data)
+    });
+    const result = await response.text();
+    console.log(result);
+    alert('Data saved to database.');
+  } catch (error) {
+    console.error('Error saving data:', error);
+  }
+}
+
+// Function to load data from the database
+async function loadDataFromDatabase() {
+  try {
+    const response = await fetch('get_data.php');
+    const data = await response.json();
+    console.log('Data loaded from database:', data);
+    displayLoadedData(data);
+  } catch (error) {
+    console.error('Error loading data:', error);
+  }
+}
+
+// Function to display the loaded data
+function displayLoadedData(data) {
+  // Update the DOM elements with the loaded data
+  document.getElementById('loaded-data').textContent = JSON.stringify(data, null, 2);
+}
+
+// Add event listeners to buttons
+document.getElementById('save-button').addEventListener('click', () => {
+  if (weatherData) {
+    saveDataToDatabase(weatherData);
+  } else {
+    alert('No data to save. Please fetch data first.');
+  }
+});
+
+document.getElementById('load-button').addEventListener('click', () => {
+  loadDataFromDatabase();
+});
+
+// Main function to run the application
 async function run() {
   try {
     const { lat, lon } = await getUserLocation();
-    const weatherData = await fetchWeatherData(lat, lon);
+    weatherData = await fetchWeatherData(lat, lon);
 
     const troyDayResults = computeTroyDay(weatherData);
     const numPasses = Object.values(troyDayResults).filter(
