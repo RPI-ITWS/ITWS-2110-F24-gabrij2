@@ -1,6 +1,6 @@
 // script.js
 
-const API_KEY = "your_openweathermap_api_key";
+const API_KEY = "db97462de6e326bb12348d36bc39e6c5"; // Replace with your actual API key
 const WEATHER_API_URL = "https://api.openweathermap.org/data/2.5/weather";
 const QUOTES_API_URL = "https://zenquotes.io/api/";
 
@@ -86,10 +86,14 @@ async function fetchWeatherData(lat, lon) {
     units: "imperial",
     appid: API_KEY,
   }).toString()}`;
+  
+  console.log("Fetching weather data from URL:", url); // Logging the URL
 
   const response = await fetch(url);
   if (!response.ok) throw new Error("Weather API error");
-  return await response.json();
+  const data = await response.json();
+  console.log("Weather API response:", data); // Logging the response
+  return data;
 }
 
 // Fetch quote
@@ -104,9 +108,12 @@ async function fetchQuote(isTroyDay) {
     url = `${QUOTES_API_URL}/random`;
   }
 
+  console.log("Fetching quote from URL:", url); // Logging the quote URL
+
   const response = await fetch(corsProxy + encodeURIComponent(url));
   if (!response.ok) throw new Error("Quote API error");
   const data = await response.json();
+  console.log("Quote API response:", data); // Logging the quote data
 
   if (data.results && data.results.length > 0) {
     // Return a random quote from the results
@@ -252,8 +259,13 @@ function displayResults(results, isTroyDay, troyDayPercentage, quote) {
   resultContainer.innerHTML = `<h3>${troyDayResult}</h3>`;
 
   const quoteDiv = document.getElementById("quote-container");
-  quoteDiv.innerHTML = `
-    <blockquote>${quote[0].h}</blockquote>`;
+  if (Array.isArray(quote) && quote.length > 0) {
+    quoteDiv.innerHTML = `
+      <blockquote>${quote[0].h}</blockquote>`;
+  } else {
+    quoteDiv.innerHTML = `
+      <blockquote>Quote not available.</blockquote>`;
+  }
 }
 
 // Variable to store fetched weather data
@@ -262,7 +274,8 @@ let weatherData = null;
 // Function to save data to the database
 async function saveDataToDatabase(data) {
   try {
-    const response = await fetch('save_data.php', {
+    console.log("Saving data to database...");
+    const response = await fetch('https://gabrij2.eastus.cloudapp.azure.com/ITWS-2110-F24-gabrij2/lab4/save_data.php', { // Update with your actual URL
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8'
@@ -270,7 +283,7 @@ async function saveDataToDatabase(data) {
       body: JSON.stringify(data)
     });
     const result = await response.text();
-    console.log(result);
+    console.log("Save Data Response:", result);
     alert('Data saved to database.');
   } catch (error) {
     console.error('Error saving data:', error);
@@ -280,7 +293,9 @@ async function saveDataToDatabase(data) {
 // Function to load data from the database
 async function loadDataFromDatabase() {
   try {
-    const response = await fetch('get_data.php');
+    console.log("Loading data from database...");
+    const response = await fetch('https://gabrij2.eastus.cloudapp.azure.com/ITWS-2110-F24-gabrij2/lab4/get_data.php'); // Update with your actual URL
+    if (!response.ok) throw new Error("Failed to load data from database.");
     const data = await response.json();
     console.log('Data loaded from database:', data);
     displayLoadedData(data);
@@ -292,39 +307,71 @@ async function loadDataFromDatabase() {
 // Function to display the loaded data
 function displayLoadedData(data) {
   // Update the DOM elements with the loaded data
-  document.getElementById('loaded-data').textContent = JSON.stringify(data, null, 2);
+  const loadedDataElement = document.getElementById('loaded-data');
+  if (loadedDataElement) {
+    loadedDataElement.textContent = JSON.stringify(data, null, 2);
+  } else {
+    console.warn("Loaded data element not found.");
+  }
 }
 
 // Add event listeners to buttons
-document.getElementById('save-button').addEventListener('click', () => {
-  if (weatherData) {
-    saveDataToDatabase(weatherData);
-  } else {
-    alert('No data to save. Please fetch data first.');
-  }
-});
+document.addEventListener('DOMContentLoaded', () => { // Ensure DOM is loaded before adding listeners
+  const saveButton = document.getElementById('save-button');
+  const loadButton = document.getElementById('load-button');
 
-document.getElementById('load-button').addEventListener('click', () => {
-  loadDataFromDatabase();
+  if (saveButton) {
+    saveButton.addEventListener('click', () => {
+      if (weatherData) {
+        saveDataToDatabase(weatherData);
+      } else {
+        alert('No data to save. Please fetch data first.');
+      }
+    });
+  } else {
+    console.warn("Save button not found.");
+  }
+
+  if (loadButton) {
+    loadButton.addEventListener('click', () => {
+      loadDataFromDatabase();
+    });
+  } else {
+    console.warn("Load button not found.");
+  }
 });
 
 // Main function to run the application
 async function run() {
   try {
+    console.log("Starting the application...");
+    
+    console.log("Getting user location...");
     const { lat, lon } = await getUserLocation();
-    weatherData = await fetchWeatherData(lat, lon);
+    console.log(`User location obtained: Latitude = ${lat}, Longitude = ${lon}`);
 
+    console.log("Fetching weather data...");
+    weatherData = await fetchWeatherData(lat, lon);
+    console.log("Weather data fetched successfully:", weatherData);
+
+    console.log("Computing Troy Day criteria...");
     const troyDayResults = computeTroyDay(weatherData);
     const numPasses = Object.values(troyDayResults).filter(
       (r) => r.passes
     ).length;
     const isTroyDay = numPasses >= 6;
     const troyDayPercentage = (numPasses / 10) * 100;
+    console.log(`Troy Day Computation: ${numPasses} passes, ${isTroyDay ? "It's a Troy Day!" : "It's not a Troy Day."}`);
 
+    console.log("Fetching quote based on Troy Day status...");
     const quote = await fetchQuote(isTroyDay);
+    console.log("Quote fetched:", quote);
+
+    console.log("Displaying results...");
     displayResults(troyDayResults, isTroyDay, troyDayPercentage, quote);
+    console.log("Application run successfully.");
   } catch (error) {
-    console.error("Error:", error);
+    console.error("Error during application run:", error);
     document.getElementById("threshold-results").textContent =
       "Error fetching data or location.";
   }

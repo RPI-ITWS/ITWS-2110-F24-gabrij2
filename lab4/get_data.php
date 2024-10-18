@@ -1,11 +1,13 @@
 <?php
 // get_data.php
-
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 // Database configuration
 $servername = "localhost";
-$username = "your_db_username";
-$password = "your_db_password";
-$dbname = "weather_app";
+$username = "gabrij2";
+$password = "dixie2";
+$dbname = "lab4";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
