@@ -17,28 +17,38 @@
     >
   </head>
   <body>
+    <div id="loading-screen"></div>
 
-    <div id="content">
-      <h1 class="card-title">The <span>Troy</span>-Day Scale</h1>
-      <h2 class="date-title"></h2>
-      <div id="btn-container">
-        <button id="get-weather-btn">Get Today's Weather Data</button>
-        <button id="view-history-btn">View Historical Data</button>
+    <div id="page">
+      <div id="content">
+        <h1 class="card-title text-center">The <span>Troy</span>-Day Scale</h1>
+        <div id="threshold-results">
+          <!-- Results will be filled in dynamically -->
+        </div>
+        <div id="bottom-card">
+          <div id="result-container"></div>
+          <div id="quote-container"></div>
+        </div>
       </div>
-      <div id="threshold-results">
-        <!-- Results will be filled in dynamically -->
+      
+      <div id="controls" class="text-center mt-4">
+        <button id="save-button" class="btn btn-primary">Save Data</button>
+        <button id="load-button" class="btn btn-secondary">Load Data</button>
       </div>
-      <div id="bottom-card">
-        <div id="result-container"></div>
-        <div id="quote-container"></div>
+    
+      <div id="loaded-data-container" class="mt-4">
+        <h3>Loaded Data from Database:</h3>
+        <pre id="loaded-data"></pre>
       </div>
     </div>
+
+  
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
-    <script type="module" src="js/main.js"></script>
+    <script src="script.js"></script>
   </body>
 </html>

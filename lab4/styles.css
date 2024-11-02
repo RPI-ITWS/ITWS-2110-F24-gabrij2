@@ -81,3 +81,21 @@ h1 span {
     font-style: italic;
     margin-bottom: 15px;
 }
+
+#controls {
+    margin-top: 20px;
+  }
+  
+  #loaded-data-container {
+    margin-top: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 15px;
+    border-radius: 5px;
+  }
+  
+  #loaded-data {
+    white-space: pre-wrap;
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 5px;
+  }
