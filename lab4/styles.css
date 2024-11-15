@@ -52,6 +52,11 @@ h1 span {
     padding-right: 3%;
 }
 
+.passes-badge {
+    font-size: larger;
+    margin-left: auto;
+}
+
 .criteria-row strong {
     width: 55%;
 }
